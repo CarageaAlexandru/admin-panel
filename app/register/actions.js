@@ -5,6 +5,7 @@ import {revalidatePath} from "next/cache";
 
 const getURL = () => {
     let url =
+        process?.env?.NEXT_PUBLIC_SITE_URL ?? // Set this to your site URL in production env.
         process?.env?.NEXT_PUBLIC_VERCEL_URL ?? // Automatically set by Vercel.
         'http://localhost:3000/login'
     // Make sure to include `https://` when not localhost.
@@ -31,16 +32,14 @@ export async function signup(formData) {
             emailRedirectTo: getURL()
         }
     })
-
     if (error) {
         redirect(`/register?message=${encodeURI(error.message)}`)
     }
-    if (user) {
-        redirect(`/login?message=${encodeURI(messages.alreadyRegistered)}`)
-    }
-
     if (user.user_metadata.email_verified === false) {
         revalidatePath('/', 'layout')
         redirect(`/login?message=${encodeURI(messages.emailSent)}`)
+    }
+    if (user) {
+        redirect(`/login?message=${encodeURI(messages.alreadyRegistered)}`)
     }
 }
