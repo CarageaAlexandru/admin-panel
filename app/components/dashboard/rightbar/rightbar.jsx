@@ -1,10 +1,13 @@
 import React from 'react';
+import Image from "next/image";
 
 const Rightbar = (props) => {
     return (
         <div className="flex flex-col  items-center gap-2">
             <div className="card w-96 bg-base-100 shadow-xl">
-                <figure><img src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes"/>
+                <figure><Image width={480} height={283}
+                               src="/product_placeholder.png"
+                               alt="Shoes"/>
                 </figure>
                 <div className="card-body">
                     <h2 className="card-title">
@@ -21,7 +24,9 @@ const Rightbar = (props) => {
                 </div>
             </div>
             <div className="card w-96 bg-base-100 shadow-xl">
-                <figure><img src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes"/>
+                <figure><Image width={480} height={283}
+                               src="/product_placeholder.png"
+                               alt="Shoes"/>
                 </figure>
                 <div className="card-body">
                     <h2 className="card-title">
