@@ -3,7 +3,7 @@ import {redirect} from "next/navigation";
 import {createClient} from "@/supabase/server";
 
 const supabase = createClient()
-const AddProductPage = async (props) => {
+export default async function AddProductPage() {
     const {
         data: {user},
     } = await supabase.auth.getUser();
@@ -41,5 +41,3 @@ const AddProductPage = async (props) => {
 
     );
 };
-
-export default AddProductPage;

@@ -4,7 +4,7 @@ import {redirect} from "next/navigation";
 import {createClient} from "@/supabase/server";
 
 const supabase = createClient()
-const ViewUserPage = async (props) => {
+export default async function ViewUserPage() {
     const {
         data: {user},
     } = await supabase.auth.getUser();
@@ -62,5 +62,3 @@ const ViewUserPage = async (props) => {
         </div>
     );
 };
-
-export default ViewUserPage;

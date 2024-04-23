@@ -93,7 +93,7 @@ const getStatusBadgeClass = (status) => {
 };
 
 
-const UsersPage = async (props) => {
+export default async function UsersPage() {
     const {
         data: {user},
     } = await supabase.auth.getUser();
@@ -172,5 +172,3 @@ const UsersPage = async (props) => {
         </div>
     );
 };
-
-export default UsersPage;

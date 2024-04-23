@@ -5,7 +5,7 @@ import {redirect} from "next/navigation";
 import {createClient} from "@/supabase/server";
 
 const supabase = createClient()
-const SingleProductPage = async (props) => {
+export default async function SingleProductPage() {
     const {
         data: {user},
     } = await supabase.auth.getUser();
@@ -59,5 +59,3 @@ const SingleProductPage = async (props) => {
         </div>
     );
 };
-
-export default SingleProductPage;

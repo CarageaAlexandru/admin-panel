@@ -4,7 +4,7 @@ import {createClient} from "@/supabase/server";
 import {inviteByEmail} from "@/app/dashboard/users/actions";
 
 const supabase = createClient()
-const UsersPage = async (props) => {
+export default async function UserPage() {
     const {
         data: {user},
     } = await supabase.auth.getUser();
@@ -12,7 +12,7 @@ const UsersPage = async (props) => {
     if (!user) {
         return redirect("/login");
     }
-    
+
     return (
         <div className="flex items-center justify-center">
             <form action="" className="flex flex-wrap gap-6 justify-center p-10 shadow-lg">
@@ -44,5 +44,3 @@ const UsersPage = async (props) => {
 
     );
 };
-
-export default UsersPage;

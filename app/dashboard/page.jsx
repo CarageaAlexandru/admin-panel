@@ -8,8 +8,7 @@ import {createClient} from "@/supabase/server";
 
 const supabase = createClient();
 
-const DashboardPage = async () => {
-
+export default async function DashboardPage() {
     const {
         data: {user},
     } = await supabase.auth.getUser();
@@ -42,5 +41,3 @@ const DashboardPage = async () => {
         </div>
     );
 };
-
-export default DashboardPage;

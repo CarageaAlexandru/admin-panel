@@ -52,7 +52,7 @@ const products = [
 ];
 
 
-const ProductsPage = async (props) => {
+export default async function ProductsPage() {
     const {
         data: {user},
     } = await supabase.auth.getUser();
@@ -112,5 +112,3 @@ const ProductsPage = async (props) => {
         </div>
     );
 };
-
-export default ProductsPage;
