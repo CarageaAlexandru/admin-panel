@@ -12,7 +12,7 @@ const RegisterPage = () => {
         <div className="flex justify-center items-center h-screen">
             <div className="flex flex-col p-4 shadow-lg rounded max-w-sm w-full items-center">
                 <h1 className="font-semibold text-2xl py-4">Register</h1>
-                <form className="flex flex-col gap-4 w-full" onSubmit={signup}>
+                <form action={signup} className="flex flex-col gap-4 w-full">
                     <input type="email" className="input input-bordered" placeholder="Email" name="email" required/>
                     <input type="password" className="input input-bordered" placeholder="Password" name="password"
                            required autoComplete="new-password"/>

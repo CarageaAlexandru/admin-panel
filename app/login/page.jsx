@@ -25,7 +25,7 @@ const LoginPage = () => {
                 <div className="mt-4 text-sm">
                     <p>Do not have an account?</p>
                     <Link href="/register">
-                        <btn className="text-blue-500 hover:underline">Register here</btn>
+                        <button className="text-blue-500 hover:underline">Register here</button>
                     </Link>
                 </div>
                 <Suspense fallback={renderLoader()}>
