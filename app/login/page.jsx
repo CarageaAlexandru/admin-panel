@@ -1,14 +1,17 @@
 "use client"
-import React, {useState} from 'react';
+import React, {Suspense, useState} from 'react';
 import ErrorAlert from "@/app/components/error/error";
 import {login} from "@/app/login/actions";
-import {useRouter} from 'next/navigation'
-import {useSearchParams} from 'next/navigation'
+import {useRouter} from 'next/navigation';
+import {useSearchParams} from 'next/navigation';
 import Link from "next/link";
 
 const LoginPage = () => {
-    const searchParams = useSearchParams()
-    const message = searchParams.get("message")
+    const router = useRouter();
+
+    // Placeholder for Suspense fallback
+    const renderLoader = () => <p>Loading...</p>;
+
     return (
         <div className="flex justify-center items-center h-screen">
             <div className="flex flex-col p-4 shadow-lg rounded max-w-sm w-full items-center">
@@ -22,12 +25,22 @@ const LoginPage = () => {
                 <div className="mt-4 text-sm">
                     <p>Do not have an account?</p>
                     <Link href="/register">
-                        <btn className="text-blue-500 btn-link">Register here</btn>
+                        <btn className="text-blue-500 hover:underline">Register here</btn>
                     </Link>
                 </div>
-                {message ? <ErrorAlert message={message}/> : ""}
+                <Suspense fallback={renderLoader()}>
+                    <MessageDisplay/>
+                </Suspense>
             </div>
         </div>
+    );
+};
+
+const MessageDisplay = () => {
+    const searchParams = useSearchParams();
+    const message = searchParams.get("message");
+    return (
+        message ? <ErrorAlert message={message}/> : ""
     );
 };
 
