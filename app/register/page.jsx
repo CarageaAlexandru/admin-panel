@@ -1,5 +1,5 @@
 "use client"
-import React, {useState} from 'react';
+import React from 'react';
 import ErrorAlert from "@/app/components/error/error";
 import {useSearchParams} from 'next/navigation'
 import {signup} from "@/app/register/actions";

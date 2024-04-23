@@ -9,6 +9,7 @@ import {createClient} from "@/supabase/server";
 const supabase = createClient();
 
 const DashboardPage = async () => {
+
     const {
         data: {user},
     } = await supabase.auth.getUser();
