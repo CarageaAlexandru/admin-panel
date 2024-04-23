@@ -6,7 +6,6 @@ import Pagination from "@/app/components/dashboard/pagination/pagination";
 import {redirect} from "next/navigation";
 import {createClient} from "@/supabase/server";
 
-const supabase = createClient()
 const users = [
     {
         id: 1, status: "active",
@@ -94,6 +93,8 @@ const getStatusBadgeClass = (status) => {
 
 
 export default async function UsersPage() {
+    const supabase = createClient()
+    
     const {
         data: {user},
     } = await supabase.auth.getUser();

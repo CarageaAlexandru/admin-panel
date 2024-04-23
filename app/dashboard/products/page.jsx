@@ -6,7 +6,6 @@ import Pagination from "@/app/components/dashboard/pagination/pagination";
 import {redirect} from "next/navigation";
 import {createClient} from "@/supabase/server";
 
-const supabase = createClient();
 
 const products = [
     {
@@ -53,6 +52,8 @@ const products = [
 
 
 export default async function ProductsPage() {
+    const supabase = createClient();
+
     const {
         data: {user},
     } = await supabase.auth.getUser();

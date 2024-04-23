@@ -6,9 +6,9 @@ import Rightbar from "@/app/components/dashboard/rightbar/rightbar";
 import {redirect} from "next/navigation";
 import {createClient} from "@/supabase/server";
 
-const supabase = createClient();
 
 export default async function DashboardPage() {
+    const supabase = createClient();
     const {
         data: {user},
     } = await supabase.auth.getUser();

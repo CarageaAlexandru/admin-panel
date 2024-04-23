@@ -3,8 +3,9 @@ import {redirect} from "next/navigation";
 import {createClient} from "@/supabase/server";
 import {inviteByEmail} from "@/app/dashboard/users/actions";
 
-const supabase = createClient()
 export default async function UserPage() {
+    const supabase = createClient()
+
     const {
         data: {user},
     } = await supabase.auth.getUser();

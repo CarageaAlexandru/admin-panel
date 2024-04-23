@@ -3,8 +3,9 @@ import Image from 'next/image';
 import {redirect} from "next/navigation";
 import {createClient} from "@/supabase/server";
 
-const supabase = createClient()
 export default async function ViewUserPage() {
+    const supabase = createClient()
+
     const {
         data: {user},
     } = await supabase.auth.getUser();

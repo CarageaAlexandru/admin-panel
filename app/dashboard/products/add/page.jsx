@@ -2,8 +2,8 @@ import React from 'react';
 import {redirect} from "next/navigation";
 import {createClient} from "@/supabase/server";
 
-const supabase = createClient()
 export default async function AddProductPage() {
+    const supabase = createClient()
     const {
         data: {user},
     } = await supabase.auth.getUser();

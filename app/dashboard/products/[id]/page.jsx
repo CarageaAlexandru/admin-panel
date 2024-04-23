@@ -4,8 +4,8 @@ import Image from 'next/image'; // Assuming you might want to add an image
 import {redirect} from "next/navigation";
 import {createClient} from "@/supabase/server";
 
-const supabase = createClient()
 export default async function SingleProductPage() {
+    const supabase = createClient()
     const {
         data: {user},
     } = await supabase.auth.getUser();
