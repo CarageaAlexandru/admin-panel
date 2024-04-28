@@ -1,11 +1,9 @@
 'use server'
 import {revalidatePath} from 'next/cache'
 import {redirect} from 'next/navigation'
-import {createClient} from "@/supabase/server";
+import supabase from "@/supabase/admin";
 
 export async function inviteByEmail(formData) {
-    const supabase = createClient()
-
     const {email, name, role, phone, address} = {
         email: formData.get('email'),
         name: formData.get('name'),
@@ -13,9 +11,11 @@ export async function inviteByEmail(formData) {
         phone: formData.get('phone'),
         address: formData.get('address')
     };
-    let {data, error} = await supabase.auth.admin.inviteUserByEmail('someone@email.com')
+    let {data, error} = await supabase.auth.admin.inviteUserByEmail(email)
 
     console.log(error)
+    console.log(data)
+
     // if (error) {
     //     redirect(`/dashboard/add/?message=${encodeURI(error.message)}`)
     //     return
