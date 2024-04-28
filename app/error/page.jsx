@@ -25,7 +25,7 @@ const Page = () => {
                 <Suspense fallback={<p>Loading...</p>}>
                     <ErrorMessage/>
                 </Suspense>
-                <button className="btn btn-accent mt-4" onClick={() => router.back()}>Go Back</button>
+                <button className="btn btn-accent mt-4" onClick={() => router.push("/")}>Go Home</button>
             </div>
         </div>
     );
