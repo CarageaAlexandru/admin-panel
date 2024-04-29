@@ -6,86 +6,23 @@ import Pagination from "@/app/components/dashboard/pagination/pagination";
 import {redirect} from "next/navigation";
 import {createClient} from "@/supabase/server";
 
-const users = [
-    {
-        id: 1, status: "active",
-        name: 'Hart Hagerty',
-        email: 'example@email.com',
-        created_at: 'United States',
-        role: 'Purple',
-    },
-    {
-        id: 2, status: "active",
-        name: 'Brice Swyre',
-        email: 'example@email.com',
-        created_at: 'China',
-        role: 'Red',
-    },
-    {
-        id: 3, status: "active",
-        name: 'Marjy Ferencz',
-        email: 'example@email.com',
-        created_at: 'Russia',
-        role: 'Crimson',
-    },
-    {
-        id: 4, status: "inactive",
-        name: 'Yancy Tear',
-        email: 'example@email.com',
-        created_at: 'Brazil',
-        role: 'Indigo',
-    },
-    {
-        id: 5, status: "active",
-        name: 'Lindsy Willbourne',
-        email: 'example@email.com',
-        created_at: 'Spain',
-        role: 'Blue',
-    },
-    {
-        id: 6, status: "active",
-        name: 'Graig Muckle',
-        email: 'example@email.com',
-        created_at: 'France',
-        role: 'Green',
-    },
-    {
-        id: 7, status: "active",
-        name: 'Janice Shorrock',
-        email: 'example@email.com',
-        created_at: 'Germany',
-        role: 'Black',
-    },
-    {
-        id: 8, status: "inactive",
-        name: 'Dionis Burberow',
-        email: 'example@email.com',
-        created_at: 'Australia',
-        role: 'Yellow',
-    },
-    {
-        id: 9, status: "active",
-        name: 'Myrtice Scolland',
-        email: 'example@email.com',
-        created_at: 'Canada',
-        role: 'Orange',
-    },
-    {
-        id: 10,
-        status: "inactive",
-        name: 'Stephanus Brooke',
-        email: 'CEO',
-        created_at: 'Italy',
-        role: 'Teal',
-    },
-];
-
 const getStatusBadgeClass = (status) => {
     switch (status) {
-        case 'active':
+        case true:
             return 'badge badge-success py-3 ';
-        case 'inactive':
+        case false:
             return 'badge badge-error py-3';
+        default:
+            return 'badge';
+    }
+};
+
+const getRoleBadgeClass = (role) => {
+    switch (role) {
+        case true:
+            return 'badge badge-warning py-3 ';
+        case false:
+            return 'badge badge-secondary py-3';
         default:
             return 'badge';
     }
@@ -94,14 +31,22 @@ const getStatusBadgeClass = (status) => {
 
 export default async function UsersPage() {
     const supabase = createClient()
-    
     const {
         data: {user},
     } = await supabase.auth.getUser();
-    console.log(user)
     if (!user) {
         return redirect("/login");
     }
+
+
+    let {data: users, error} = await supabase
+        .from('usesrs')
+        .select('*')
+
+    if (error) {
+        throw new Error(error.message)
+    }
+
     return (
         <div className="flex-1">
             <div className="flex items-center gap-3  justify-between">
@@ -129,12 +74,14 @@ export default async function UsersPage() {
                             <th>Name</th>
                             <th>Created at</th>
                             <th>Status</th>
+                            <th>Role</th>
+                            <th>Address</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
-                        {users.map((user) => (
-                            <tr key={user.id}>
+                        {users.map(({id, name, email, created_at, phone, address, role, isActive}) => (
+                            <tr key={id}>
                                 <td><input type="checkbox" className="checkbox"/></td>
                                 <td>
                                     <div className="flex items-center gap-3">
@@ -145,14 +92,27 @@ export default async function UsersPage() {
                                             </div>
                                         </div>
                                         <div>
-                                            <div className="font-bold">{user.name}</div>
-                                            <div className="text-sm opacity-50">{user.email}</div>
+                                            <div className="font-bold">{name}</div>
+                                            <div className="text-sm opacity-50">{email}</div>
                                         </div>
                                     </div>
                                 </td>
-                                <td>{user.created_at}</td>
+                                <td>{new Date(created_at).toLocaleDateString('en-US', {
+                                    month: 'long',
+                                    day: 'numeric',
+                                    year: "numeric"
+                                })}</td>
                                 <td>
-                                    <div className={getStatusBadgeClass(user.status)}>{user.status}</div>
+                                    <div
+                                        className={getStatusBadgeClass(isActive)}>{isActive ? "Active" : "Inactive"}</div>
+                                </td>
+                                <td>
+                                    <div className={getRoleBadgeClass(role)}>
+                                        {role ? "Admin" : "Client"}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div className="font-bold">{address}</div>
                                 </td>
                                 <td className="flex gap-4 py-5">
                                     <Link href="/dashboard/users/1">

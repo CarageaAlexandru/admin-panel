@@ -3,6 +3,7 @@ import Sidebar from "@/app/components/dashboard/sidebar/sidebar";
 import Navbar from "@/app/components/dashboard/navbar/navbar";
 import Footer from "@/app/components/footer/footer";
 
+
 const Layout = ({children}) => {
     return (
         <div className="flex h-screen overflow-hidden bg-base-100">
