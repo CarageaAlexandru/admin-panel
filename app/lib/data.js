@@ -1,4 +1,6 @@
-import {createClient} from "@/supabase/server";
+import {createBrowserClient} from "@supabase/ssr";
+
+createBrowserClient
 
 const supabase = createClient()
 export const fetchUsers = async (search = "", page = 1) => {
