@@ -1,6 +1,6 @@
 "use client"
 import React, {Suspense} from 'react';
-import ErrorAlert from "@/app/components/error/error";
+import ErrorAlert from "@/app/ui/error/error";
 import {useSearchParams} from 'next/navigation';
 import {signup} from "@/app/register/actions";
 

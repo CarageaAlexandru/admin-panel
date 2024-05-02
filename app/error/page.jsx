@@ -2,7 +2,7 @@
 import React, {Suspense} from 'react';
 import {useRouter} from 'next/navigation';
 import {useSearchParams} from 'next/navigation';
-import ErrorAlert from "@/app/components/error/error";
+import ErrorAlert from "@/app/ui/error/error";
 
 const ErrorMessage = () => {
     const searchParams = useSearchParams();

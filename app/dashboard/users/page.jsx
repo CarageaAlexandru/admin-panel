@@ -2,9 +2,11 @@ import React from 'react';
 import {MdSearch} from "react-icons/md";
 import Link from "next/link";
 import Image from "next/image";
-import Pagination from "@/app/components/dashboard/pagination/pagination";
+import Pagination from "@/app/ui/dashboard/pagination/pagination";
 import {redirect} from "next/navigation";
 import {createClient} from "@/supabase/server";
+import {fetchUsers} from "@/app/lib/data";
+import Search from "@/app/ui/dashboard/search/search";
 
 const getStatusBadgeClass = (status) => {
     switch (status) {
@@ -28,9 +30,13 @@ const getRoleBadgeClass = (role) => {
     }
 };
 
-
-export default async function UsersPage() {
+export default async function UsersPage({searchParams}) {
     const supabase = createClient()
+    const query = searchParams?.name || ""
+    const page = parseInt(searchParams?.page) || 1
+
+    const {users, count} = await fetchUsers(query, page)
+
     const {
         data: {user},
     } = await supabase.auth.getUser();
@@ -39,21 +45,10 @@ export default async function UsersPage() {
     }
 
 
-    let {data: users, error} = await supabase
-        .from('usesrs')
-        .select('*')
-
-    if (error) {
-        throw new Error(error.message)
-    }
-
     return (
         <div className="flex-1">
             <div className="flex items-center gap-3  justify-between">
-                <div className="flex items-center gap-3 p-4 rounded">
-                    <MdSearch size={40}/>
-                    <input type="text" placeholder="Search" className="input input-bordered w-full md:w-auto"/>
-                </div>
+                <Search placeholder="Search user"/>
                 <div className="flex items-center">
                     <Link href="/dashboard/users/add">
                         <button className="btn btn-primary">Invite user</button>
@@ -63,7 +58,6 @@ export default async function UsersPage() {
             <div className="flex items-center justify-center">
                 <div className="overflow-x-auto">
                     <table className="table table-zebra">
-                        {/* head */}
                         <thead>
                         <tr>
                             <th>
@@ -75,6 +69,7 @@ export default async function UsersPage() {
                             <th>Created at</th>
                             <th>Status</th>
                             <th>Role</th>
+                            <th>Phone</th>
                             <th>Address</th>
                             <th>Actions</th>
                         </tr>
@@ -112,6 +107,9 @@ export default async function UsersPage() {
                                     </div>
                                 </td>
                                 <td>
+                                    <div className="font-bold">0{phone}</div>
+                                </td>
+                                <td>
                                     <div className="font-bold">{address}</div>
                                 </td>
                                 <td className="flex gap-4 py-5">
@@ -126,7 +124,7 @@ export default async function UsersPage() {
                         ))}
                         </tbody>
                     </table>
-                    <Pagination/>
+                    <Pagination count={count}/>
 
                 </div>
             </div>

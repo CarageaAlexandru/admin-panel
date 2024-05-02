@@ -12,7 +12,7 @@ import {
     MdHelpCenter,
     MdLogout
 } from "react-icons/md";
-import MenuLink from "@/app/components/dashboard/sidebar/menuLink/menuLink";
+import MenuLink from "@/app/ui/dashboard/sidebar/menuLink/menuLink";
 import Image from "next/image";
 
 const menuItems = [

@@ -2,7 +2,7 @@ import React from 'react';
 import {MdSearch} from "react-icons/md";
 import Link from "next/link";
 import Image from "next/image";
-import Pagination from "@/app/components/dashboard/pagination/pagination";
+import Pagination from "@/app/ui/dashboard/pagination/pagination";
 import {redirect} from "next/navigation";
 import {createClient} from "@/supabase/server";
 

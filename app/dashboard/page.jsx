@@ -1,8 +1,8 @@
 import React from 'react';
-import Card from "@/app/components/dashboard/card/card";
-import Transactions from "@/app/components/dashboard/transactions/transactions";
-import Chart from "@/app/components/dashboard/chart/chart";
-import Rightbar from "@/app/components/dashboard/rightbar/rightbar";
+import Card from "@/app/ui/dashboard/card/card";
+import Transactions from "@/app/ui/dashboard/transactions/transactions";
+import Chart from "@/app/ui/dashboard/chart/chart";
+import Rightbar from "@/app/ui/dashboard/rightbar/rightbar";
 import {redirect} from "next/navigation";
 import {createClient} from "@/supabase/server";
 

@@ -1,7 +1,7 @@
 import React from 'react';
-import Sidebar from "@/app/components/dashboard/sidebar/sidebar";
-import Navbar from "@/app/components/dashboard/navbar/navbar";
-import Footer from "@/app/components/footer/footer";
+import Sidebar from "@/app/ui/dashboard/sidebar/sidebar";
+import Navbar from "@/app/ui/dashboard/navbar/navbar";
+import Footer from "@/app/ui/footer/footer";
 
 
 const Layout = ({children}) => {
