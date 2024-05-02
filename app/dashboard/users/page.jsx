@@ -1,5 +1,4 @@
 import React from 'react';
-import {MdSearch} from "react-icons/md";
 import Link from "next/link";
 import Image from "next/image";
 import Pagination from "@/app/ui/dashboard/pagination/pagination";
@@ -32,17 +31,15 @@ const getRoleBadgeClass = (role) => {
 
 export default async function UsersPage({searchParams}) {
     const supabase = createClient()
-    const query = searchParams?.name || ""
-    const page = parseInt(searchParams?.page) || 1
-
-    const {users, count} = await fetchUsers(query, page)
-
     const {
         data: {user},
     } = await supabase.auth.getUser();
     if (!user) {
         return redirect("/login");
     }
+    const query = searchParams?.name || ""
+    const page = parseInt(searchParams?.page) || 1
+    const {users, count} = await fetchUsers(query, page)
 
 
     return (
