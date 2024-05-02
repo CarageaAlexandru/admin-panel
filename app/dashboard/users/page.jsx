@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import Link from "next/link";
 import Image from "next/image";
 import Pagination from "@/app/ui/dashboard/pagination/pagination";
@@ -121,7 +121,9 @@ export default async function UsersPage({searchParams}) {
                         ))}
                         </tbody>
                     </table>
-                    <Pagination count={count}/>
+                    <Suspense fallback={<p>Loading...</p>}>
+                        <Pagination count={count}/>
+                    </Suspense>
 
                 </div>
             </div>
