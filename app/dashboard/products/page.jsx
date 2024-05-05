@@ -63,15 +63,22 @@ export default async function ProductsPage() {
     }
     return (
         <div className="flex-1">
-            <div className="flex items-center gap-3 justify-between">
+            <div className="flex items-center gap-3 justify-evenly ">
                 <div className="flex items-center gap-3 p-4 rounded">
                     <MdSearch size={40}/>
                     <input type="text" placeholder="Search products" className="input input-bordered w-full md:w-auto"/>
                 </div>
-                <div className="flex items-center">
-                    <Link href="/dashboard/products/add">
-                        <button className="btn btn-primary">Add new product</button>
-                    </Link>
+                <div className="flex items-center gap-2 ">
+                    <div className="flex items-center">
+                        <Link href="/dashboard/products/add">
+                            <button className="btn btn-primary">Add new product</button>
+                        </Link>
+                    </div>
+                    {/*<div className="flex items-center">*/}
+                    {/*    <Link href="/dashboard/products/add">*/}
+                    {/*        <button className="btn btn-primary">Add new category</button>*/}
+                    {/*    </Link>*/}
+                    {/*</div>*/}
                 </div>
             </div>
             <div className="flex items-center justify-center">

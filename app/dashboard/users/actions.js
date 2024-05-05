@@ -2,8 +2,6 @@
 import {revalidatePath} from 'next/cache'
 import {redirect} from 'next/navigation'
 import supabase from "@/supabase/admin";
-import {json} from "next/dist/client/components/react-dev-overlay/server/shared";
-import {red} from "next/dist/lib/picocolors";
 
 export async function inviteByEmail(formData) {
     const {email, name, role, isActive, phone, address} = {

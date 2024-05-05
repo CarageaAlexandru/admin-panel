@@ -11,8 +11,12 @@ export const fetchUsers = async (search = "", page = 1) => {
             .select("*", {count: "exact"})
             .ilike('name', `%${search}%`)
             .range(startIndex, endIndex)
+        if (error) {
+            console.error('Error fetching user:', error);
+            return null;
+        }
         return {users, count}
     } catch (error) {
-        console.log(error)
+        console.error('Unexpected error fetching users:', error);
     }
 }
