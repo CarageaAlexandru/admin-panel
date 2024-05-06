@@ -55,3 +55,19 @@ export const fetchProducts = async (page = 1, search = "") => {
         console.error("Unexpected error fetching products:", error)
     }
 }
+
+export const fetchProductById = async (id) => {
+    try {
+        const {data: product, error} = await supabase
+            .from("products")
+            .select("*")
+            .eq("id", id)
+        if (error) {
+            console.error('Error fetching product:', error);
+            return null;
+        }
+        return product[0]
+    } catch (error) {
+        console.error('Unexpected error fetching product by id:', error);
+    }
+}

@@ -63,7 +63,7 @@ export default async function ProductsPage({searchParams}) {
                                 <td>{product.color}</td>
                                 <td>{formatDate(product.created_at)}</td>
                                 <td className="flex gap-4 py-5">
-                                    <Link href="/dashboard/products/1">
+                                    <Link href={`/dashboard/products/${product.id}`}>
                                         <button className="btn btn-primary btn-sm ">View</button>
                                     </Link>
                                     <form action={deleteProductById}>
