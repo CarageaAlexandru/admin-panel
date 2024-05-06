@@ -1,6 +1,7 @@
 import {createClient} from "@/supabase/client";
 
 const supabase = createClient()
+
 export const fetchUsers = async (search = "", page = 1) => {
     const ITEMS_PER_PAGE = 5
     const startIndex = (page - 1) * ITEMS_PER_PAGE
@@ -18,6 +19,22 @@ export const fetchUsers = async (search = "", page = 1) => {
         return {users, count}
     } catch (error) {
         console.error('Unexpected error fetching users:', error);
+    }
+}
+
+export const fetchUserById = async (id) => {
+    try {
+        const {data: user, error} = await supabase
+            .from("users")
+            .select("*")
+            .eq("id", id)
+        if (error) {
+            console.error('Error fetching user:', error);
+            return null;
+        }
+        return user[0]
+    } catch (error) {
+        console.error('Unexpected error fetching user by id:', error);
     }
 }
 

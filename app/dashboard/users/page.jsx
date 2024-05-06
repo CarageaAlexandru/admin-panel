@@ -8,6 +8,7 @@ import {fetchUsers} from "@/app/lib/data";
 import Search from "@/app/ui/dashboard/search/search";
 import {formatDate} from "@/app/lib/utils";
 import clsx from "clsx";
+import {deleteUserById} from "@/app/dashboard/users/actions";
 
 
 export default async function UsersPage({searchParams}) {
@@ -95,12 +96,13 @@ export default async function UsersPage({searchParams}) {
                                     <div className="font-bold">{address}</div>
                                 </td>
                                 <td className="flex gap-4 py-5">
-                                    <Link href="/dashboard/users/1">
+                                    <Link href={`/dashboard/users/${id}`}>
                                         <button className="btn btn-primary btn-sm ">View</button>
                                     </Link>
-                                    <Link href="/">
+                                    <form action={deleteUserById}>
+                                        <input type="hidden" name="id" value={id}/>
                                         <button className="btn btn-error btn-sm">Delete</button>
-                                    </Link>
+                                    </form>
                                 </td>
                             </tr>
                         ))}

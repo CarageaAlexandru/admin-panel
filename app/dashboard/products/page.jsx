@@ -1,5 +1,4 @@
 import React from 'react';
-import {MdSearch} from "react-icons/md";
 import Link from "next/link";
 import Image from "next/image";
 import Pagination from "@/app/ui/dashboard/pagination/pagination";
@@ -8,6 +7,7 @@ import {createClient} from "@/supabase/server";
 import {fetchProducts} from "@/app/lib/data";
 import {formatDate} from "@/app/lib/utils";
 import Search from "@/app/ui/dashboard/search/search";
+import {deleteProductById} from "@/app/dashboard/products/actions";
 
 export default async function ProductsPage({searchParams}) {
     const supabase = createClient();
@@ -66,9 +66,10 @@ export default async function ProductsPage({searchParams}) {
                                     <Link href="/dashboard/products/1">
                                         <button className="btn btn-primary btn-sm ">View</button>
                                     </Link>
-                                    <Link href="/">
+                                    <form action={deleteProductById}>
+                                        <input type="hidden" name="id" value={product.id}/>
                                         <button className="btn btn-error btn-sm">Delete</button>
-                                    </Link>
+                                    </form>
                                 </td>
                             </tr>
                         ))}

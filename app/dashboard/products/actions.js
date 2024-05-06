@@ -2,6 +2,7 @@
 import {revalidatePath} from 'next/cache'
 import {redirect} from 'next/navigation'
 import {createClient} from "@/supabase/server";
+import {ProductSchema} from "@/app/validations/product";
 
 export async function addProduct(formData) {
     const supabase = createClient()
@@ -15,6 +16,15 @@ export async function addProduct(formData) {
         description: formData.get('description')
     };
 
+    try {
+        ProductSchema.parse(product)
+    } catch (error) {
+        console.error('Invalid product data:', error);
+        redirect(`/dashboard/products/add?message=${encodeURI(error.issues.map(issue => issue.message).join(", "))}`)
+        return;
+    }
+
+
     const {data, error} = await supabase
         .from('products')
         .insert(product)
@@ -26,6 +36,19 @@ export async function addProduct(formData) {
         }
     }
 
-    revalidatePath('/products', 'layout')
+    revalidatePath('/dashboard/products', 'page')
+    redirect('/dashboard/products')
+}
+
+export async function deleteProductById(formData) {
+    const supabase = createClient()
+    const id = formData.get("id")
+    const {error} = await supabase.from("products").delete().eq("id", id)
+
+    if (error) {
+        console.error('Error deleting product:', error);
+    }
+
+    revalidatePath('/dashboard/products', 'page')
     redirect('/dashboard/products')
 }
