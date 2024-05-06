@@ -5,69 +5,25 @@ import Image from "next/image";
 import Pagination from "@/app/ui/dashboard/pagination/pagination";
 import {redirect} from "next/navigation";
 import {createClient} from "@/supabase/server";
+import {fetchProducts} from "@/app/lib/data";
+import {formatDate} from "@/app/lib/utils";
+import Search from "@/app/ui/dashboard/search/search";
 
-
-const products = [
-    {
-        id: 1,
-        title: 'Wireless Headphones',
-        description: 'High-quality wireless headphones with noise cancellation features.',
-        price: '$99',
-        created_at: '2021-09-01',
-        stock: 'In stock',
-    },
-    {
-        id: 2,
-        title: 'Smartwatch',
-        description: 'Latest smartwatch with heart rate and GPS tracking.',
-        price: '$299',
-        created_at: '2021-10-15',
-        stock: 'In stock',
-    },
-    {
-        id: 3,
-        title: '4K Drone',
-        description: 'A drone with 4K capabilities and 30 minutes of flight time.',
-        price: '$499',
-        created_at: '2022-01-20',
-        stock: 'Out of stock',
-    },
-    {
-        id: 4,
-        title: 'E-Book Reader',
-        description: 'Lightweight e-book reader with a paper-like display.',
-        price: '$130',
-        created_at: '2022-02-11',
-        stock: 'In stock',
-    },
-    {
-        id: 5,
-        title: 'Bluetooth Speaker',
-        description: 'Portable Bluetooth speaker with 24-hour battery life.',
-        price: '$75',
-        created_at: '2022-03-30',
-        stock: 'In stock',
-    }
-];
-
-
-export default async function ProductsPage() {
+export default async function ProductsPage({searchParams}) {
     const supabase = createClient();
-
     const {
         data: {user},
     } = await supabase.auth.getUser();
-
     if (!user) {
         return redirect("/login");
     }
+    const query = searchParams?.title || ""
+    const page = parseInt(searchParams?.page) || 1
+    const {products, count} = await fetchProducts(page, query)
     return (
         <div className="flex-1">
             <div className="flex items-center gap-3 justify-evenly ">
-                <div className="flex items-center gap-3 p-4 rounded">
-                    <MdSearch size={40}/>
-                    <input type="text" placeholder="Search products" className="input input-bordered w-full md:w-auto"/>
-                </div>
+                <Search placeholder="Search for product" queryParam="title"/>
                 <div className="flex items-center gap-2 ">
                     <div className="flex items-center">
                         <Link href="/dashboard/products/add">
@@ -89,8 +45,10 @@ export default async function ProductsPage() {
                             <th>Title</th>
                             <th>Description</th>
                             <th>Price</th>
-                            <th>Created at</th>
                             <th>Stock</th>
+                            <th>Size</th>
+                            <th>Color</th>
+                            <th>Created at</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
@@ -98,10 +56,12 @@ export default async function ProductsPage() {
                         {products.map((product) => (
                             <tr key={product.id}>
                                 <td>{product.title}</td>
-                                <td>{product.description}</td>
+                                <td className="max-w-96">{product.description}</td>
                                 <td>{product.price}</td>
-                                <td>{product.created_at}</td>
                                 <td>{product.stock}</td>
+                                <td>{product.size}</td>
+                                <td>{product.color}</td>
+                                <td>{formatDate(product.created_at)}</td>
                                 <td className="flex gap-4 py-5">
                                     <Link href="/dashboard/products/1">
                                         <button className="btn btn-primary btn-sm ">View</button>
@@ -114,7 +74,7 @@ export default async function ProductsPage() {
                         ))}
                         </tbody>
                     </table>
-                    <Pagination/>
+                    <Pagination count={count}/>
                 </div>
             </div>
         </div>

@@ -26,6 +26,6 @@ export async function addProduct(formData) {
         }
     }
 
-    revalidatePath('/', 'layout')
-    redirect('/dashboard')
+    revalidatePath('/products', 'layout')
+    redirect('/dashboard/products')
 }

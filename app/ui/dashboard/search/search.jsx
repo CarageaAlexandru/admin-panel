@@ -2,9 +2,9 @@
 import React from 'react';
 import {MdSearch} from "react-icons/md";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
-import {useDebounce, useDebouncedCallback} from "use-debounce";
+import {useDebouncedCallback} from "use-debounce";
 
-const Search = ({placeholder}) => {
+const Search = ({placeholder, queryParam}) => {
     const searchParams = useSearchParams()
     const {replace} = useRouter()
     const pathname = usePathname()
@@ -14,9 +14,9 @@ const Search = ({placeholder}) => {
         const params = new URLSearchParams(searchParams)
         params.set("page", 1)
         if (e.target.value) {
-            e.target.value.length > 2 && params.set("name", e.target.value)
+            e.target.value.length > 2 && params.set(queryParam, e.target.value)
         } else {
-            params.delete("name")
+            params.delete(queryParam)
         }
         replace(`${pathname}?${params}`)
     }, 500)

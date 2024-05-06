@@ -27,7 +27,7 @@ export default async function AddProductPage() {
                     <option value="phone">Phone</option>
                     <option value="computer">Computer</option>
                 </select>
-                <input type="number" placeholder="Price" required={true} name="pricee"
+                <input type="number" placeholder="Price" required={true} name="price"
                        className="input input-bordered input-accent w-full max-w-xs"/>
                 <input type="number" placeholder="Stock" required={true} name="stock"
                        className="input input-bordered input-accent w-full max-w-xs"/>

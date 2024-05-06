@@ -6,28 +6,9 @@ import {redirect} from "next/navigation";
 import {createClient} from "@/supabase/server";
 import {fetchUsers} from "@/app/lib/data";
 import Search from "@/app/ui/dashboard/search/search";
+import {formatDate} from "@/app/lib/utils";
+import clsx from "clsx";
 
-const getStatusBadgeClass = (status) => {
-    switch (status) {
-        case true:
-            return 'badge badge-success py-3 ';
-        case false:
-            return 'badge badge-error py-3';
-        default:
-            return 'badge';
-    }
-};
-
-const getRoleBadgeClass = (role) => {
-    switch (role) {
-        case true:
-            return 'badge badge-warning py-3 ';
-        case false:
-            return 'badge badge-secondary py-3';
-        default:
-            return 'badge';
-    }
-};
 
 export default async function UsersPage({searchParams}) {
     const supabase = createClient()
@@ -42,10 +23,11 @@ export default async function UsersPage({searchParams}) {
     const {users, count} = await fetchUsers(query, page)
 
 
+    // noinspection JSAnnotator
     return (
         <div className="flex-1">
             <div className="flex items-center gap-3  justify-between">
-                <Search placeholder="Search user"/>
+                <Search placeholder="Search user" queryParam="name"/>
                 <div className="flex items-center">
                     <Link href="/dashboard/users/add">
                         <button className="btn btn-primary">Invite user</button>
@@ -89,19 +71,22 @@ export default async function UsersPage({searchParams}) {
                                         </div>
                                     </div>
                                 </td>
-                                <td>{new Date(created_at).toLocaleDateString('en-US', {
-                                    month: 'long',
-                                    day: 'numeric',
-                                    year: "numeric"
-                                })}</td>
+                                <td>{formatDate(created_at)}</td>
                                 <td>
-                                    <div
-                                        className={getStatusBadgeClass(isActive)}>{isActive ? "Active" : "Inactive"}</div>
+                                    <div className={clsx(
+                                        "badge", {
+                                            "badge badge-success py-3": isActive === true,
+                                            "badge badge-error py-3": isActive === false
+                                        }
+                                    )}>{isActive ? "Active" : "Inactive"}</div>
                                 </td>
                                 <td>
-                                    <div className={getRoleBadgeClass(role)}>
-                                        {role ? "Admin" : "Client"}
-                                    </div>
+                                    <div className={clsx(
+                                        "badge", {
+                                            "badge badge-warning py-3 ": role === true,
+                                            "badge badge-secondary py-3": role === false
+                                        }
+                                    )}>{role ? "Admin" : "Client"}</div>
                                 </td>
                                 <td>
                                     <div className="font-bold">0{phone}</div>
