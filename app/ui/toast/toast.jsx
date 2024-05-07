@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Toast = ({field, message, key}) => {
+const Toast = ({field, message}) => {
 
     return (
-        <div role="alert" className="alert alert-error text-white my-2" key={key}>
+        <div role="alert" className="alert alert-error text-white my-2">
             <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none"
                  viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"

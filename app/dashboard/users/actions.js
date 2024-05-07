@@ -14,7 +14,6 @@ export async function inviteByEmail(prevState, formData) {
         phone: parseInt(formData.get('phone'), 10),
         address: formData.get('address')
     };
-    console.log(userDetails.phone)
     // const {data, error} = await supabase.auth.admin.inviteUserByEmail(email)
     const validatedFields = AddUserSchema.safeParse(userDetails)
 

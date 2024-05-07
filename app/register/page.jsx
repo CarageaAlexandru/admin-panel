@@ -1,8 +1,7 @@
 "use client"
 import React, {Suspense} from 'react';
-import ErrorAlert from "@/app/ui/error/error";
-import {useSearchParams} from 'next/navigation';
 import {signup} from "@/app/register/actions";
+import MessageDisplay from "@/app/ui/MessageDisplay/MessageDisplay";
 
 const RegisterPage = () => {
     // Placeholder for Suspense fallback
@@ -26,13 +25,5 @@ const RegisterPage = () => {
     );
 };
 
-// Component to handle the display of messages
-const MessageDisplay = () => {
-    const searchParams = useSearchParams();
-    const message = searchParams.get("message");
-    return (
-        message ? <ErrorAlert message={message}/> : ""
-    );
-};
 
 export default RegisterPage;

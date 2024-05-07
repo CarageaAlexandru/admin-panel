@@ -2,19 +2,27 @@
 import {revalidatePath} from 'next/cache'
 import {redirect} from 'next/navigation'
 import {createClient} from "@/supabase/server";
+import LoginSchema from "@/app/validations/login";
 
-export async function login(formData) {
+export async function login(prevState, formData) {
     const supabase = createClient()
 
-    const data = {
+    const userDetails = {
         email: formData.get('email'),
         password: formData.get('password'),
     }
+    const validatedFields = LoginSchema.safeParse(userDetails)
 
-    const {error} = await supabase.auth.signInWithPassword(data)
+    if (!validatedFields.success) {
+        return {
+            errors: validatedFields.error.flatten().fieldErrors
+        }
+    }
 
+    const {error} = await supabase.auth.signInWithPassword(userDetails)
     if (error) {
-        redirect(`/login?message=${encodeURI(error.message)}`)
+        console.log(error)
+        return {errors: {auth: error.message}};
     }
 
     revalidatePath('/', 'layout')

@@ -4,7 +4,6 @@ import {addProduct} from "@/app/dashboard/products/actions";
 import React from "react";
 import {useFormState} from "react-dom"
 import Toast from "@/app/ui/toast/toast";
-import {log} from "next/dist/server/typescript/utils";
 
 export function AddProductForm() {
     const [state, formAction] = useFormState(addProduct, undefined)

@@ -9,7 +9,6 @@ export function AddUserForm() {
     const [state, formAction] = useFormState(inviteByEmail, undefined)
     return (
         <div className="flex flex-col max-w-screen-lg">
-
             <form action={formAction} className="flex flex-wrap gap-6 justify-center p-10 shadow-lg">
                 <input type="text" placeholder="Name" name="name"
                        className="input input-bordered input-accent w-full max-w-xs"/>
