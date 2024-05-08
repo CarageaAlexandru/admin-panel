@@ -98,7 +98,7 @@ const Sidebar = () => {
                     </li>
                 ))}
             </ul>
-            <button className="btn btn-accent mt-2">Logout</button>
+            <button className="btn btn-accent w-full text-white">Logout</button>
         </div>
     );
 };

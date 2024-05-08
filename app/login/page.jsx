@@ -5,6 +5,7 @@ import Link from "next/link";
 import {useFormState} from "react-dom"
 import Toast from "@/app/ui/toast/toast";
 import MessageDisplay from "@/app/ui/MessageDisplay/MessageDisplay";
+import Submit from "@/app/ui/forms/Submit";
 
 const LoginPage = () => {
     const [state, formAction] = useFormState(login, undefined)
@@ -18,7 +19,7 @@ const LoginPage = () => {
                     <input type="email" className="input input-bordered" placeholder="Email" name="email" required/>
                     <input type="password" className="input input-bordered" placeholder="Password" name="password"
                            required autoComplete="new-password"/>
-                    <button type="submit" className="btn btn-accent">Login</button>
+                    <Submit/>
                 </form>
                 <div className="mt-4 text-sm">
                     <p>Do not have an account?</p>

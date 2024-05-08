@@ -2,9 +2,9 @@
 import React, {Suspense} from 'react';
 import {signup} from "@/app/register/actions";
 import MessageDisplay from "@/app/ui/MessageDisplay/MessageDisplay";
+import Submit from "@/app/ui/forms/Submit";
 
 const RegisterPage = () => {
-    // Placeholder for Suspense fallback
     const renderLoader = () => <p>Loading...</p>;
 
     return (
@@ -15,7 +15,7 @@ const RegisterPage = () => {
                     <input type="email" className="input input-bordered" placeholder="Email" name="email" required/>
                     <input type="password" className="input input-bordered" placeholder="Password" name="password"
                            required autoComplete="new-password"/>
-                    <button type="submit" className="btn btn-accent">Register</button>
+                    <Submit/>
                 </form>
                 <Suspense fallback={renderLoader()}>
                     <MessageDisplay/>

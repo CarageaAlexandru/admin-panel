@@ -4,6 +4,7 @@ import {addProduct} from "@/app/dashboard/products/actions";
 import React from "react";
 import {useFormState} from "react-dom"
 import Toast from "@/app/ui/toast/toast";
+import Submit from "@/app/ui/forms/Submit";
 
 export function AddProductForm() {
     const [state, formAction] = useFormState(addProduct, undefined)
@@ -37,7 +38,7 @@ export function AddProductForm() {
                           id="description"
                           name="description"
                 ></textarea>
-                <button className="btn btn-accent" type="submit">Submit</button>
+                <Submit/>
             </form>
             {/*field is the input error coming from and message the error message*/}
             {state && state.errors && Object.entries(state.errors).map(([field, message]) => (

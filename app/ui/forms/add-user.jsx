@@ -4,6 +4,7 @@ import {inviteByEmail} from "@/app/dashboard/users/actions";
 import React from "react";
 import {useFormState} from "react-dom"
 import Toast from "@/app/ui/toast/toast";
+import Submit from "@/app/ui/forms/Submit";
 
 export function AddUserForm() {
     const [state, formAction] = useFormState(inviteByEmail, undefined)
@@ -32,7 +33,7 @@ export function AddUserForm() {
                           id="address"
                           name="address"
                 ></textarea>
-                <button className="btn btn-accent" type="submit">Submit</button>
+                <Submit/>
             </form>
             {state && state.errors && Object.entries(state.errors).map(([field, message]) => (
                 <Toast key={`${field}-${message}`} message={message} field={field}/>

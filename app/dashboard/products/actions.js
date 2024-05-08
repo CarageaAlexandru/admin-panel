@@ -2,7 +2,7 @@
 import {revalidatePath} from 'next/cache'
 import {redirect} from 'next/navigation'
 import {createClient} from "@/supabase/server";
-import {ProductSchema} from "@/app/validations/product";
+import {UpdateUserSchema} from "@/app/validations/update-user";
 
 
 export async function addProduct(prevState, formData) {
@@ -17,7 +17,7 @@ export async function addProduct(prevState, formData) {
         description: formData.get('description')
     };
 
-    const validatedFields = ProductSchema.safeParse(
+    const validatedFields = UpdateUserSchema.safeParse(
         product
     )
 
@@ -31,7 +31,7 @@ export async function addProduct(prevState, formData) {
         .from('products')
         .insert(product)
         .select()
-    
+
     if (error) {
         return {errors: error.message}
     }

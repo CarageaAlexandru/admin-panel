@@ -4,6 +4,7 @@ import {redirect} from 'next/navigation'
 import supabase from "@/supabase/admin";
 import {createClient} from "@/supabase/server";
 import {AddUserSchema} from "@/app/validations/add-user";
+import {UpdateUserSchema} from "@/app/validations/update-user";
 
 export async function inviteByEmail(prevState, formData) {
     const userDetails = {
@@ -48,27 +49,35 @@ export async function deleteUserById(formData) {
     redirect('/dashboard/users')
 }
 
-export async function updateUserById(formData) {
-    const {id, email, name, role, isActive, phone, address} = {
+export async function updateUserById(prevState, formData) {
+    const userDetails = {
         id: formData.get("id"),
         email: formData.get('email'),
         name: formData.get('name'),
         role: JSON.parse(formData.get('role')),
         isActive: JSON.parse(formData.get("isActive")),
-        phone: formData.get('phone'),
+        phone: parseInt(formData.get('phone'), 10),
         address: formData.get('address')
     };
+    // prevState may get emptied if re-render or validation occurs
+    const validatedFields = UpdateUserSchema.safeParse(
+        userDetails
+    )
 
+    if (!validatedFields.success) {
+        return {
+            errors: validatedFields.error.flatten().fieldErrors
+        }
+    }
     const {error} = await supabase
         .from("users")
-        .update({email, name, role, isActive, phone, address})
-        .eq("id", id);
+        .update(userDetails)
+        .eq("id", userDetails.id);
 
-    console.log(error)
-    // if (error) {
-    //     redirect(`/dashboard/add/?message=${encodeURI(error.message)}`)
-    //     return
-    // }
+    if (error) {
+        console.log(error)
+        return {errors: {supabase: error.message}};
+    }
 
     revalidatePath('/dashboard/users', 'page')
     redirect('/dashboard/users')
