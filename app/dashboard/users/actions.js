@@ -76,7 +76,7 @@ export async function updateUserById(prevState, formData) {
 
     if (error) {
         console.log(error)
-        return {errors: {supabase: error.message}};
+        return {errors: {database: error.message}};
     }
 
     revalidatePath('/dashboard/users', 'page')

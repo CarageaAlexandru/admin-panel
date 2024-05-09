@@ -3,7 +3,8 @@ import Image from 'next/image';
 import {redirect} from "next/navigation";
 import {createClient} from "@/supabase/server";
 import {fetchUserById} from "@/app/lib/data";
-import UpdateUserForm from "@/app/ui/forms/update-user";
+import {updateUserById} from "@/app/dashboard/users/actions";
+import UserForm from "@/app/ui/forms/UserForm";
 
 export default async function ViewUserPage({params}) {
     const supabase = createClient()
@@ -18,15 +19,14 @@ export default async function ViewUserPage({params}) {
 
     const user_ = await fetchUserById(id)
     return (
-        <div className="flex items-start justify-center p-5">
-            <div className="flex flex-col items-center justify-center">
+        <div className="flex items-center justify-center min-h-max p-5">
+            <div className="flex flex-col items-center justify-center w-1/2">
                 <div>
                     <Image src="/avatar_placeholder.png" alt="User Image" width={300} height={300}/>
                 </div>
+                <UserForm action={updateUserById} user={user_}/>
             </div>
-            <div className="flex-1 max-w-md px-6">
-                <UpdateUserForm user={user_}/>
-            </div>
+
         </div>
     );
 };

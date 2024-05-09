@@ -1,43 +1,44 @@
 "use client"
-import {updateUserById} from "@/app/dashboard/users/actions";
 import Link from "next/link";
 import React from "react";
 import Toast from "@/app/ui/toast/toast";
 import Submit from "@/app/ui/forms/Submit";
 import {useFormState} from "react-dom";
 
-export function UpdateUserForm({user}) {
-    const [state, formAction] = useFormState(updateUserById, user)
+export function UserForm({action, user}) {
+    const [state, formAction] = useFormState(action, user || undefined)
     return (
-        <div>
+        <div className="flex flex-col w-1/2 justify-center">
             <form action={formAction}>
-                <input type="hidden" name="id" value={user.id}/>
+                {/*place the user id as hidden so it will persist if the validation fails and prevState gets overiden*/}
+                <input type="hidden" name="id" value={user ? user.id : undefined}/>
                 <div className="mb-4">
                     <label className="block text-sm font-medium mb-1">Name:</label>
-                    <input type="text" defaultValue={user.name} name="name" required={true}
+                    <input type="text" defaultValue={user ? user.name : ""} name="name" required={true}
                            className="input input-bordered input-accent w-full"/>
                 </div>
                 <div className="mb-4">
                     <label className="block text-sm font-medium mb-1">Email:</label>
-                    <input type="email" defaultValue={user.email} name="email" required={true}
+                    <input type="email" defaultValue={user ? user.email : ""} name="email" required={true}
                            className="input input-bordered input-accent w-full"/>
                 </div>
                 <div className="mb-4">
                     <label className="block text-sm font-medium mb-1">Phone:</label>
-                    <input type="number" defaultValue={user.phone} name="phone" required={true}
+                    <input type="number" defaultValue={user ? user.phone : ""} name="phone" required={true}
                            className="input input-bordered input-accent w-full"/>
                 </div>
                 <div className="flex justify-between">
                     <div className="mb-4">
                         <label className="block text-sm font-medium mb-1">Is Admin?</label>
-                        <select defaultValue={user.role} className="select select-accent" name="role">
+                        <select defaultValue={user ? user.role : ""} className="select select-accent" name="role">
                             <option value="true">Yes</option>
                             <option value="false">No</option>
                         </select>
                     </div>
                     <div className="mb-4">
                         <label className="block text-sm font-medium mb-1">Is Active?</label>
-                        <select defaultValue={user.isActive} className="select select-accent" name="isActive">
+                        <select defaultValue={user ? user.isActive : ""} className="select select-accent"
+                                name="isActive">
                             <option value="true">Active</option>
                             <option value="false">Inactive</option>
                         </select>
@@ -46,14 +47,14 @@ export function UpdateUserForm({user}) {
                 <div className="mb-4">
                     <label className="block text-sm font-medium mb-1">Address:</label>
                     <textarea className="textarea textarea-bordered w-full textarea-accent"
-                              defaultValue={user.address}
+                              defaultValue={user ? user.address : ""}
                               name="address"
                               rows={3}></textarea>
                 </div>
                 <div className="flex justify-between items-center">
                     <Submit/>
                     <Link href="/dashboard/users">
-                        <button className="btn btn-primary">Back to List</button>
+                        <button className="btn btn-primary">Back</button>
                     </Link>
                 </div>
             </form>
@@ -64,4 +65,4 @@ export function UpdateUserForm({user}) {
     )
 }
 
-export default UpdateUserForm
+export default UserForm

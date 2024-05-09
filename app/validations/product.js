@@ -11,7 +11,8 @@ export const ProductSchema = z.object({
     stock: z.number()
         .min(1, {message: "Stock must be at least 1 item."}),
     color: z.string()
-        .min(1, {message: "Color is required."}),
+        .min(1, {message: "Color is required."})
+        .max(30, {message: "Color must be less than 30 characters."}),
     size: z.string()
         .min(1, {message: "Size is required."}),
     description: z.string()

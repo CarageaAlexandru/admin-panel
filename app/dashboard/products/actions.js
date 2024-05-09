@@ -2,7 +2,7 @@
 import {revalidatePath} from 'next/cache'
 import {redirect} from 'next/navigation'
 import {createClient} from "@/supabase/server";
-import {UpdateUserSchema} from "@/app/validations/update-user";
+import {ProductSchema} from "@/app/validations/product";
 
 
 export async function addProduct(prevState, formData) {
@@ -17,7 +17,7 @@ export async function addProduct(prevState, formData) {
         description: formData.get('description')
     };
 
-    const validatedFields = UpdateUserSchema.safeParse(
+    const validatedFields = ProductSchema.safeParse(
         product
     )
 
@@ -54,10 +54,10 @@ export async function deleteProductById(formData) {
     redirect('/dashboard/products')
 }
 
-export async function updateProductById(formData) {
+export async function updateProductById(prevState, formData) {
     const supabase = createClient()
-    const {id, title, category, price, stock, color, size, description} = {
-        id: formData.get("id"),
+    const updatedProduct = {
+        id: formData.get('id'),
         title: formData.get('title'),
         category: formData.get('category'),
         price: JSON.parse(formData.get('price')),
@@ -67,16 +67,29 @@ export async function updateProductById(formData) {
         description: formData.get('description')
     };
 
+    // object containing prev values ( including id )
+    // console.log(prevState, "{REV")
+    // // new values from updating
+    // console.log(formData, "data")
+
+    const validatedFields = ProductSchema.safeParse(
+        updatedProduct
+    )
+
+    if (!validatedFields.success) {
+        return {
+            errors: validatedFields.error.flatten().fieldErrors
+        }
+    }
+
     const {error} = await supabase
         .from("products")
-        .update({title, category, price, stock, color, size, description})
-        .eq("id", id);
-
+        .update(updatedProduct)
+        .eq("id", updatedProduct.id);
+    //
     if (error) {
-        console.error('Error inserting product:', error);
-        if (error) {
-            redirect(`/dashboard/products/add?message=${encodeURI(error.message)}`)
-        }
+        console.log(error)
+        return {errors: {database: error.message}};
     }
 
     revalidatePath('/dashboard/products', 'page')
