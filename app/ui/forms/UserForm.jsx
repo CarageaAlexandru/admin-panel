@@ -29,16 +29,17 @@ export function UserForm({action, user}) {
                 </div>
                 <div className="flex justify-between">
                     <div className="mb-4">
-                        <label className="block text-sm font-medium mb-1">Is Admin?</label>
-                        <select defaultValue={user ? user.role : ""} className="select select-accent" name="role">
+                        <select defaultValue={user ? user.role : "general"} className="select select-accent"
+                                name="role">
+                            <option disabled value="general">Is Admin?</option>
                             <option value="true">Yes</option>
                             <option value="false">No</option>
                         </select>
                     </div>
                     <div className="mb-4">
-                        <label className="block text-sm font-medium mb-1">Is Active?</label>
-                        <select defaultValue={user ? user.isActive : ""} className="select select-accent"
+                        <select defaultValue={user ? user.isActive : "general"} className="select select-accent"
                                 name="isActive">
+                            <option disabled value="general">Is Active?</option>
                             <option value="true">Active</option>
                             <option value="false">Inactive</option>
                         </select>
