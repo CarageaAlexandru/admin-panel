@@ -3,6 +3,7 @@ import {usePathname, useRouter, useSearchParams} from "next/navigation";
 import React from 'react';
 
 const Pagination = ({count}) => {
+    console.log(count)
     const searchParams = useSearchParams()
     const {replace} = useRouter()
     const pathname = usePathname()

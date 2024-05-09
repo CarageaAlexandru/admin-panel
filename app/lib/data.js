@@ -44,7 +44,8 @@ export const fetchProducts = async (page = 1, search = "") => {
     const endIndex = page * ITEMS_PER_PAGE - 1
     try {
         const {data: products, error, count} = await supabase.from("products")
-            .select("*", {count: "exact"}).ilike('title', `%${search}%`)
+            .select("*", {count: "exact"})
+            .ilike('title', `%${search}%`)
             .range(startIndex, endIndex)
         if (error) {
             console.error("Error fetching products", error)
@@ -69,6 +70,27 @@ export const fetchProductById = async (id) => {
         return product[0]
     } catch (error) {
         console.error('Unexpected error fetching product by id:', error);
+    }
+}
+
+export const fetchTransactions = async (page = 1, search = "") => {
+    const ITEMS_PER_PAGE = 5
+    const startIndex = (page - 1) * ITEMS_PER_PAGE
+    const endIndex = page * ITEMS_PER_PAGE - 1
+    try {
+        let {data: transactions, error} = await supabase
+            .rpc("transaction_details")
+            .select("*")
+            .ilike('user_name', `%${search}%`)
+            .range(startIndex, endIndex)
+        if (error) {
+            console.error("Error fetching transactions:", error);
+            return;
+        }
+        const count = transactions[0]?.transaction_count || 0
+        return {transactions, count}
+    } catch (error) {
+        console.error("Unexpected error fetching transactions:", error)
     }
 }
 

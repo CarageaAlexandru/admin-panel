@@ -3,10 +3,9 @@ import clsx from "clsx";
 import {formatDate} from "@/app/lib/utils";
 import {fetchLastTransactions} from "@/app/lib/data";
 
-export default async function Transactions() {
-    const transactions = await fetchLastTransactions()
+const Transactions = ({transactions}) => {
     return (
-        <div className="flex flex-col max-h-lvh h-lvh">
+        <div className="flex flex-col">
             <h2 className="text-xl font-semibold">Latest Transactions</h2>
             <table className="table">
                 {/* head */}
@@ -52,3 +51,5 @@ export default async function Transactions() {
         </div>
     );
 };
+
+export default Transactions
