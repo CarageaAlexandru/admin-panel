@@ -12,6 +12,6 @@ export const UpdateUserSchema = z.object({
     address: z.string()
         .min(1, {message: "Address is required."})
         .max(300, {message: "Address is too long."}),
-    role: z.boolean(),
+    admin: z.boolean(),
     isActive: z.boolean()
 });

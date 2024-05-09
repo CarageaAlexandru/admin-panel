@@ -1,49 +1,51 @@
 "use client"
-import React from 'react';
-import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer} from 'recharts';
+import React, {useEffect, useState} from 'react';
+import {AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer} from 'recharts';
+import {fetchLastTransactions} from "@/app/lib/data";
+import {formatDate} from "@/app/lib/utils";
 
-const transactionsData = [
-    {id: 4, name: 'Jennica Kindred', status: 'done', date: '22.01.2024', amount: '2400'},
-    {id: 5, name: 'Dorolice Crossman', status: 'cancelled', date: '05.02.2024', amount: '3300'},
-    {id: 6, name: 'Bailie Coulman', status: 'pending', date: '18.02.2024', amount: '1900'},
-    {id: 7, name: 'Felice Walkington', status: 'pending', date: '22.02.2024', amount: '4100'},
-    {id: 8, name: 'Emmalynn Penndragon', status: 'pending', date: '14.03.2024', amount: '2950'},
-    {id: 9, name: 'Roscoe Barfoot', status: 'done', date: '28.03.2024', amount: '2250'},
-    {id: 10, name: 'Barby Heisler', status: 'cancelled', date: '09.04.2024', amount: '1850'},
-    {id: 11, name: 'Karylin Stollenbeck', status: 'done', date: '19.04.2024', amount: '5600'},
-    {id: 12, name: 'Dorry Gillingham', status: 'cancelled', date: '23.04.2024', amount: '3200'},
-    {id: 13, name: 'Patty Kneass', status: 'done', date: '30.04.2024', amount: '2450'},
-];
+export default function Chart() {
+    const [chartData, setChartData] = useState([]);
 
-const chartData = transactionsData.map((transaction) => ({
-    date: transaction.date,
-    amount: transaction.amount
-}))
+    useEffect(() => {
+        async function loadData() {
+            try {
+                const transactions = await fetchLastTransactions();
+                const formattedData = transactions.map(({transaction_date, total_amount}) => ({
+                    date: formatDate(transaction_date),
+                    amount: total_amount
+                }));
+                setChartData(formattedData);
+            } catch (error) {
+                console.error("Failed to fetch transactions:", error);
+            }
+        }
 
-const Chart = (props) => {
+        loadData();
+    }, []); // Empty dependency array to run only once on component mount
     return (
         <div className="h-full bg-base-100">
             <h2 className="text-xl font-semibold mb-2">Weekly Transactions</h2>
-            <ResponsiveContainer width="100%" height="100%" className="bg-base-200">
-                <LineChart
-                    data={chartData}
-                    margin={{
-                        top: 5,
-                        right: 30,
-                        left: 20,
-                        bottom: 5,
-                    }}
+            <ResponsiveContainer width="100%" height="100%">
+                <AreaChart width={600} height={300} data={chartData}
                 >
-                    <CartesianGrid strokeDasharray="3 3"/>
+                    <defs>
+                        <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8}/>
+                            <stop offset="95%" stopColor="#8884d8" stopOpacity={0}/>
+                        </linearGradient>
+                        <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8}/>
+                            <stop offset="95%" stopColor="#82ca9d" stopOpacity={0}/>
+                        </linearGradient>
+                    </defs>
                     <XAxis dataKey="date"/>
                     <YAxis/>
                     <Tooltip/>
-                    <Legend/>
-                    <Line type="monotone" dataKey="amount" stroke="#8884d8" activeDot={{r: 8}}/>
-                </LineChart>
+                    <Area type="monotone" dataKey="amount" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)"/>
+                    <Area type="monotone" dataKey="date" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)"/>
+                </AreaChart>
             </ResponsiveContainer>
         </div>
     );
 };
-
-export default Chart;

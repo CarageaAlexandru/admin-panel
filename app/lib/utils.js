@@ -7,3 +7,8 @@ export const formatDate = (date) => {
         minute: "2-digit"
     })
 }
+
+export const formatMoney = (amount) => {
+    return new Intl.NumberFormat('en-UK', {style: 'currency', currency: 'GBP'}).format(amount);
+
+}

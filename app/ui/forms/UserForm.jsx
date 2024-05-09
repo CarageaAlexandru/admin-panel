@@ -29,8 +29,8 @@ export function UserForm({action, user}) {
                 </div>
                 <div className="flex justify-between">
                     <div className="mb-4">
-                        <select defaultValue={user ? user.role : "general"} className="select select-accent"
-                                name="role">
+                        <select defaultValue={user ? user.admin : "general"} className="select select-accent"
+                                name="admin">
                             <option disabled value="general">Is Admin?</option>
                             <option value="true">Yes</option>
                             <option value="false">No</option>

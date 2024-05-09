@@ -10,7 +10,7 @@ export async function inviteByEmail(prevState, formData) {
     const userDetails = {
         email: formData.get('email'),
         name: formData.get('name'),
-        role: JSON.parse(formData.get('role')),
+        admin: JSON.parse(formData.get('admin')),
         isActive: JSON.parse(formData.get("isActive")),
         phone: parseInt(formData.get('phone'), 10),
         address: formData.get('address')
@@ -54,7 +54,7 @@ export async function updateUserById(prevState, formData) {
         id: formData.get("id"),
         email: formData.get('email'),
         name: formData.get('name'),
-        role: JSON.parse(formData.get('role')),
+        admin: JSON.parse(formData.get('admin')),
         isActive: JSON.parse(formData.get("isActive")),
         phone: parseInt(formData.get('phone'), 10),
         address: formData.get('address')

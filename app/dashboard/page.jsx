@@ -2,10 +2,9 @@ import React from 'react';
 import Card from "@/app/ui/dashboard/card/card";
 import Transactions from "@/app/ui/dashboard/transactions/transactions";
 import Chart from "@/app/ui/dashboard/chart/chart";
-import Rightbar from "@/app/ui/dashboard/rightbar/rightbar";
 import {redirect} from "next/navigation";
 import {createClient} from "@/supabase/server";
-
+import {fetchCardData} from "@/app/lib/data";
 
 export default async function DashboardPage() {
     const supabase = createClient();
@@ -15,28 +14,29 @@ export default async function DashboardPage() {
     if (!user) {
         return redirect("/login");
     }
+    // const {revenue, users} = await fetchCardData()
+    const {stockValue, totalSales, users} = await fetchCardData()
     return (
-        <div className="flex h-full">
+        <div className="flex h-full p-2 w-3/4 justify-center">
             {/* Left side content area */}
             <div className="flex-1 flex flex-col gap-3">
                 {/* Cards container */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:grid-cols-2 ">
-                    <Card/>
-                    <Card/>
-                    <Card/>
+                <div className="grid lg:grid-cols-3 md:grid-cols-1 gap-4 sm:grid-cols-1">
+                    <Card title="Total Users" value={users}/>
+                    <Card title="Total Stock Value" value={stockValue}/>
+                    <Card title="Total Sales" value={totalSales}/>
                 </div>
                 {/* Transactions */}
-                <div className="flex-1 mb-4 overflow-y-auto">
+                <div className="flex-1  mb-4 overflow-hidden">
                     <Transactions/>
                 </div>
                 {/* Chart */}
-                <div className="flex-1 min-h-0 bg-green-50">
-                    <Chart/>
+                <div className="flex flex-1 min-h-0 bg-green-50">
+                    <div className="flex-1">
+                        <Chart/>
+                    </div>
+
                 </div>
-            </div>
-            {/* Rightbar occupies 25% of the width and the full height of its container */}
-            <div className="w-1/4 ml-2">
-                <Rightbar/>
             </div>
         </div>
     );

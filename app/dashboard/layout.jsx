@@ -18,7 +18,7 @@ const Layout = ({children}) => {
                     <Navbar/>
                 </header>
                 {/* Main content below Navbar */}
-                <main className="flex-1 p-3 overflow-y-auto ">
+                <main className="flex flex-1 justify-center p-3 overflow-y-auto">
                     {children}
                 </main>
                 {/* Footer at the bottom */}

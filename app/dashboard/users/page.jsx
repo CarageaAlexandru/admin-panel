@@ -55,7 +55,7 @@ export default async function UsersPage({searchParams}) {
                         </tr>
                         </thead>
                         <tbody>
-                        {users.map(({id, name, email, created_at, phone, address, role, isActive}) => (
+                        {users.map(({id, name, email, created_at, phone, address, admin, isActive}) => (
                             <tr key={id}>
                                 <td><input type="checkbox" className="checkbox"/></td>
                                 <td>
@@ -84,10 +84,10 @@ export default async function UsersPage({searchParams}) {
                                 <td>
                                     <div className={clsx(
                                         "badge", {
-                                            "badge badge-warning py-3 ": role === true,
-                                            "badge badge-secondary py-3": role === false
+                                            "badge badge-warning py-3 ": admin === true,
+                                            "badge badge-secondary py-3": admin === false
                                         }
-                                    )}>{role ? "Admin" : "Client"}</div>
+                                    )}>{admin ? "Admin" : "Client"}</div>
                                 </td>
                                 <td>
                                     <div className="font-bold">0{phone}</div>

@@ -71,3 +71,61 @@ export const fetchProductById = async (id) => {
         console.error('Unexpected error fetching product by id:', error);
     }
 }
+
+export async function fetchLastTransactions() {
+    let {data: transactions, error} = await supabase
+        .rpc("transaction_details")
+        .select("*")
+        .limit(5);
+
+    if (error) {
+        console.error("Error fetching transactions:", error);
+        return;
+    }
+
+    return transactions;
+}
+
+export async function fetchCardData() {
+    try {
+        // Define the queries
+        const fetchUsers = supabase
+            .from("users")
+            .select('*', {count: 'exact', head: true})
+            .eq("admin", false)
+            .then(({data, count, error}) => {
+                if (error) throw error;
+                return count;
+            }); // Fetching all users who are not admins
+
+        const fetchStockValue = supabase
+            .from("products")
+            .select("price, stock")
+            .then(({data, error}) => {
+                if (error) throw error;
+                // Calculate total value from price and stock
+                return data.reduce((acc, product) => acc + (product.price * product.stock), 0);
+            });
+
+        const fetchSales = supabase
+            .rpc("transaction_details")
+            .select("*")
+            .then(({data: sales, error}) => {
+                if (error) throw error
+                return sales
+            })
+
+        const [users, stockValue, sales] = await Promise.all([fetchUsers, fetchStockValue, fetchSales]);
+        // first fetch sales from procedure and return it
+        const totalSales = sales.filter(transaction => transaction.status === "completed").reduce((total, transaction) => total + transaction.total_amount, 0)
+        return {
+            users,
+            stockValue,
+            totalSales
+        };
+
+    } catch (error) {
+        console.error("Error fetching card data:", error);
+    }
+}
+
