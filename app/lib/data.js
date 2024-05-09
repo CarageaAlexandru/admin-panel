@@ -76,7 +76,7 @@ export async function fetchLastTransactions() {
     let {data: transactions, error} = await supabase
         .rpc("transaction_details")
         .select("*")
-        .limit(5);
+        .limit(10);
 
     if (error) {
         console.error("Error fetching transactions:", error);

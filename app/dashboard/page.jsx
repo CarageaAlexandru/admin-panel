@@ -17,7 +17,7 @@ export default async function DashboardPage() {
     // const {revenue, users} = await fetchCardData()
     const {stockValue, totalSales, users} = await fetchCardData()
     return (
-        <div className="flex h-full p-2 w-3/4 justify-center">
+        <div className="flex h-full p-2 w-3/4  ">
             {/* Left side content area */}
             <div className="flex-1 flex flex-col gap-3">
                 {/* Cards container */}
@@ -27,7 +27,7 @@ export default async function DashboardPage() {
                     <Card title="Total Sales" value={totalSales}/>
                 </div>
                 {/* Transactions */}
-                <div className="flex-1  mb-4 overflow-hidden">
+                <div className="flex-1  mb-4 overflow-y-auto">
                     <Transactions/>
                 </div>
                 {/* Chart */}

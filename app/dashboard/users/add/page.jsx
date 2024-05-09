@@ -14,7 +14,7 @@ export default async function UserPage() {
     }
 
     return (
-        <div className="flex items-center justify-center min-h-max min-w-max ">
+        <div className="flex flex-1 items-center justify-center min-h-max min-w-max ">
             <UserForm action={inviteByEmail} user={null}/>
         </div>
 

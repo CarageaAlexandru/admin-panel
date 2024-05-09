@@ -19,7 +19,7 @@ export default async function ViewUserPage({params}) {
 
     const user_ = await fetchUserById(id)
     return (
-        <div className="flex items-center justify-center min-h-max p-5">
+        <div className="flex flex-1 items-center justify-center min-h-max p-5">
             <div className="flex flex-col items-center justify-center w-1/2">
                 <div>
                     <Image src="/avatar_placeholder.png" alt="User Image" width={300} height={300}/>

@@ -14,7 +14,7 @@ export default async function AddProductPage() {
         return redirect("/login");
     }
     return (
-        <div className="flex items-center justify-center min-h-max p-5">
+        <div className="flex flex-1 items-center justify-center min-h-max p-5">
             <ProductForm action={addProduct} product={null}/>
         </div>
     );
