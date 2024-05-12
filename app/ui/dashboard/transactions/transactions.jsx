@@ -3,10 +3,10 @@ import clsx from "clsx";
 import {formatDate} from "@/app/lib/utils";
 import {fetchLastTransactions} from "@/app/lib/data";
 
-const Transactions = ({transactions}) => {
+const Transactions = ({transactions, title}) => {
     return (
         <div className="flex flex-col">
-            <h2 className="text-xl font-semibold">Latest Transactions</h2>
+            <h2 className="text-xl font-semibold">{title}</h2>
             <table className="table">
                 {/* head */}
                 <thead>

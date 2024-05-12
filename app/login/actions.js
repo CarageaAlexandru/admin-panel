@@ -29,3 +29,15 @@ export async function login(prevState, formData) {
     redirect('/dashboard')
 }
 
+export async function logout() {
+    const supabase = createClient()
+
+    const {error} = await supabase.auth.signOut();
+    if (error) {
+        console.error("Error during sign out:", error);
+        return {errors: {auth: error.message}};
+    }
+
+    revalidatePath('/', 'layout')
+    redirect('/login')
+}

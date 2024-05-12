@@ -22,7 +22,7 @@ export default function Chart() {
         }
 
         loadData();
-    }, []); // Empty dependency array to run only once on component mount
+    }, []);
     return (
         <div className="h-full bg-base-100">
             <h2 className="text-xl font-semibold mb-2">Weekly Transactions</h2>

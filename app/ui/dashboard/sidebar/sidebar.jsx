@@ -14,6 +14,8 @@ import {
 } from "react-icons/md";
 import MenuLink from "@/app/ui/dashboard/sidebar/menuLink/menuLink";
 import Image from "next/image";
+import {logout} from "@/app/login/actions";
+import {deleteProductById} from "@/app/dashboard/products/actions";
 
 const menuItems = [
     {
@@ -41,41 +43,41 @@ const menuItems = [
             },
         ],
     },
-    {
-        title: "Analytics",
-        list: [
-            {
-                title: "Revenue",
-                path: "/dashboard/revenue",
-                icon: <MdWork/>,
-            },
-            {
-                title: "Reports",
-                path: "/dashboard/reports",
-                icon: <MdAnalytics/>,
-            },
-            {
-                title: "Teams",
-                path: "/dashboard/teams",
-                icon: <MdPeople/>,
-            },
-        ],
-    },
-    {
-        title: "User",
-        list: [
-            {
-                title: "Settings",
-                path: "/dashboard/settings",
-                icon: <MdOutlineSettings/>,
-            },
-            {
-                title: "Help",
-                path: "/dashboard/help",
-                icon: <MdHelpCenter/>,
-            },
-        ],
-    },
+    // {
+    //     title: "Analytics",
+    //     list: [
+    //         {
+    //             title: "Revenue",
+    //             path: "/dashboard/revenue",
+    //             icon: <MdWork/>,
+    //         },
+    //         {
+    //             title: "Reports",
+    //             path: "/dashboard/reports",
+    //             icon: <MdAnalytics/>,
+    //         },
+    //         {
+    //             title: "Teams",
+    //             path: "/dashboard/teams",
+    //             icon: <MdPeople/>,
+    //         },
+    //     ],
+    // },
+    // {
+    //     title: "User",
+    //     list: [
+    //         {
+    //             title: "Settings",
+    //             path: "/dashboard/settings",
+    //             icon: <MdOutlineSettings/>,
+    //         },
+    //         {
+    //             title: "Help",
+    //             path: "/dashboard/help",
+    //             icon: <MdHelpCenter/>,
+    //         },
+    //     ],
+    // },
 ];
 const Sidebar = () => {
     return (
@@ -98,7 +100,9 @@ const Sidebar = () => {
                     </li>
                 ))}
             </ul>
-            <button className="btn btn-accent w-full text-white">Logout</button>
+            <form action={logout}>
+                <button className="btn btn-accent w-full text-white">Logout</button>
+            </form>
         </div>
     );
 };

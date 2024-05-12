@@ -2,8 +2,6 @@ import React, {Suspense} from 'react';
 import Link from "next/link";
 import Image from "next/image";
 import Pagination from "@/app/ui/dashboard/pagination/pagination";
-import {redirect} from "next/navigation";
-import {createClient} from "@/supabase/server";
 import {fetchUsers} from "@/app/lib/data";
 import Search from "@/app/ui/dashboard/search/search";
 import {formatDate} from "@/app/lib/utils";
@@ -12,13 +10,6 @@ import {deleteUserById} from "@/app/dashboard/users/actions";
 
 
 export default async function UsersPage({searchParams}) {
-    const supabase = createClient()
-    const {
-        data: {user},
-    } = await supabase.auth.getUser();
-    if (!user) {
-        return redirect("/login");
-    }
     const query = searchParams?.name || ""
     const page = parseInt(searchParams?.page) || 1
     const {users, count} = await fetchUsers(query, page)

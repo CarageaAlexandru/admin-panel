@@ -1,22 +1,12 @@
 import React from 'react';
 import Link from "next/link";
-import Image from "next/image";
 import Pagination from "@/app/ui/dashboard/pagination/pagination";
-import {redirect} from "next/navigation";
-import {createClient} from "@/supabase/server";
 import {fetchProducts} from "@/app/lib/data";
 import {formatDate} from "@/app/lib/utils";
 import Search from "@/app/ui/dashboard/search/search";
 import {deleteProductById} from "@/app/dashboard/products/actions";
 
 export default async function ProductsPage({searchParams}) {
-    const supabase = createClient();
-    const {
-        data: {user},
-    } = await supabase.auth.getUser();
-    if (!user) {
-        return redirect("/login");
-    }
     const query = searchParams?.title || ""
     const page = parseInt(searchParams?.page) || 1
     const {products, count} = await fetchProducts(page, query)
@@ -30,11 +20,6 @@ export default async function ProductsPage({searchParams}) {
                             <button className="btn btn-primary">Add new product</button>
                         </Link>
                     </div>
-                    {/*<div className="flex items-center">*/}
-                    {/*    <Link href="/dashboard/products/add">*/}
-                    {/*        <button className="btn btn-primary">Add new category</button>*/}
-                    {/*    </Link>*/}
-                    {/*</div>*/}
                 </div>
             </div>
             <div className="flex items-center justify-center">

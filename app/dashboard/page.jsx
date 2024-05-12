@@ -2,22 +2,13 @@ import React from 'react';
 import Card from "@/app/ui/dashboard/card/card";
 import Transactions from "@/app/ui/dashboard/transactions/transactions";
 import Chart from "@/app/ui/dashboard/chart/chart";
-import {redirect} from "next/navigation";
-import {createClient} from "@/supabase/server";
-import {fetchCardData, fetchLastTransactions, fetchSalesByCategory} from "@/app/lib/data";
+import {fetchCardData, fetchLastTransactions} from "@/app/lib/data";
 import Category from "@/app/ui/dashboard/chart/category";
 
 export default async function DashboardPage() {
-    const supabase = createClient();
-
-    const {
-        data: {user},
-    } = await supabase.auth.getUser();
-    if (!user) {
-        return redirect("/login");
-    }
     const {stockValue, totalSales, users} = await fetchCardData()
     const transactions = await fetchLastTransactions()
+
     return (
         <div className="flex h-full p-2 w-3/4  ">
             {/* Left side content area */}
@@ -30,7 +21,7 @@ export default async function DashboardPage() {
                 </div>
                 {/* Transactions */}
                 <div className="flex-1  mb-4 overflow-y-auto">
-                    <Transactions transactions={transactions}/>
+                    <Transactions transactions={transactions} title="Latest Transactions"/>
                 </div>
                 {/* Chart */}
                 <div className="flex items-center justify-center">

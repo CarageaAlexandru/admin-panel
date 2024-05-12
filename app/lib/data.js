@@ -133,7 +133,7 @@ export async function fetchCardData() {
             .then(({data, count, error}) => {
                 if (error) throw error;
                 return count;
-            }); // Fetching all users who are not admins
+            }); // Fetching all users who are not admin
 
         const fetchStockValue = supabase
             .from("products")
@@ -166,3 +166,9 @@ export async function fetchCardData() {
     }
 }
 
+export async function signOut() {
+    const {error} = await supabase.auth.signOut();
+    if (error) {
+        console.error("Error during sign out:", error);
+    }
+}
