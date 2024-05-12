@@ -21,11 +21,13 @@ const LoginPage = () => {
                            required autoComplete="new-password"/>
                     <Submit/>
                 </form>
-                <div className="mt-4 text-sm">
+                <div className="mt-4 text-sm gap-y-2 flex flex-col">
                     <p>Do not have an account?</p>
                     <Link href="/register">
                         <button className="text-blue-500 hover:underline">Register here</button>
                     </Link>
+                    <p>OR </p>
+                    <p className="w-">Login with <strong>test@test.com - password</strong></p>
                 </div>
                 <Suspense fallback={renderLoader()}>
                     <MessageDisplay/>

@@ -15,7 +15,6 @@ import {
 import MenuLink from "@/app/ui/dashboard/sidebar/menuLink/menuLink";
 import Image from "next/image";
 import {logout} from "@/app/login/actions";
-import {deleteProductById} from "@/app/dashboard/products/actions";
 
 const menuItems = [
     {

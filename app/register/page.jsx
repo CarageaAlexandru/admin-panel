@@ -16,11 +16,11 @@ const RegisterPage = () => {
                     <input type="email" className="input input-bordered" placeholder="Email" name="email" required/>
                     <input type="password" className="input input-bordered" placeholder="Password" name="password"
                            required autoComplete="new-password"/>
-                    <div className="flex justify-between">
+                    <div className="flex flex-row-reverse justify-between">
+                        <Submit/>
                         <Link href="/dashboard/products">
                             <button className="btn btn-primary">Back</button>
                         </Link>
-                        <Submit/>
                     </div>
                 </form>
                 <Suspense fallback={renderLoader()}>
