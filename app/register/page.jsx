@@ -3,6 +3,7 @@ import React, {Suspense} from 'react';
 import {signup} from "@/app/register/actions";
 import MessageDisplay from "@/app/ui/MessageDisplay/MessageDisplay";
 import Submit from "@/app/ui/forms/Submit";
+import Link from "next/link";
 
 const RegisterPage = () => {
     const renderLoader = () => <p>Loading...</p>;
@@ -15,7 +16,12 @@ const RegisterPage = () => {
                     <input type="email" className="input input-bordered" placeholder="Email" name="email" required/>
                     <input type="password" className="input input-bordered" placeholder="Password" name="password"
                            required autoComplete="new-password"/>
-                    <Submit/>
+                    <div className="flex justify-between">
+                        <Link href="/dashboard/products">
+                            <button className="btn btn-primary">Back</button>
+                        </Link>
+                        <Submit/>
+                    </div>
                 </form>
                 <Suspense fallback={renderLoader()}>
                     <MessageDisplay/>
