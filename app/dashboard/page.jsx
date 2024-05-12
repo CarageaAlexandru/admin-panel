@@ -4,7 +4,8 @@ import Transactions from "@/app/ui/dashboard/transactions/transactions";
 import Chart from "@/app/ui/dashboard/chart/chart";
 import {redirect} from "next/navigation";
 import {createClient} from "@/supabase/server";
-import {fetchCardData, fetchLastTransactions} from "@/app/lib/data";
+import {fetchCardData, fetchLastTransactions, fetchSalesByCategory} from "@/app/lib/data";
+import Category from "@/app/ui/dashboard/chart/category";
 
 export default async function DashboardPage() {
     const supabase = createClient();
@@ -15,7 +16,6 @@ export default async function DashboardPage() {
     if (!user) {
         return redirect("/login");
     }
-    // const {revenue, users} = await fetchCardData()
     const {stockValue, totalSales, users} = await fetchCardData()
     const transactions = await fetchLastTransactions()
     return (
@@ -33,11 +33,9 @@ export default async function DashboardPage() {
                     <Transactions transactions={transactions}/>
                 </div>
                 {/* Chart */}
-                <div className="flex flex-1 min-h-0 bg-green-50">
-                    <div className="flex-1">
-                        <Chart/>
-                    </div>
-
+                <div className="flex items-center justify-center">
+                    <div className="w-full h-[400px]"><Chart/></div>
+                    <div className="w-full h-[400px]"><Category/></div>
                 </div>
             </div>
         </div>

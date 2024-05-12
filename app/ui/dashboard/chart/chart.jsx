@@ -27,7 +27,7 @@ export default function Chart() {
         <div className="h-full bg-base-100">
             <h2 className="text-xl font-semibold mb-2">Weekly Transactions</h2>
             <ResponsiveContainer width="100%" height="100%">
-                <AreaChart width={600} height={300} data={chartData}
+                <AreaChart data={chartData}
                 >
                     <defs>
                         <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">

@@ -94,6 +94,20 @@ export const fetchTransactions = async (page = 1, search = "") => {
     }
 }
 
+export const fetchSalesByCategory = async () => {
+    try {
+        let {data, error} = await supabase
+            .rpc("transaction_details")
+        const salesByCategory = data.filter(item => item.status === "completed").reduce((acc, item) => {
+            acc[item.category] = (acc[item.category] || 0) + item.total_amount
+            return acc
+        }, {})
+        return salesByCategory
+    } catch (error) {
+        console.error("Unexpected error fetching transactions by category:", error)
+    }
+}
+
 export async function fetchLastTransactions() {
     let {data: transactions, error} = await supabase
         .rpc("transaction_details")
