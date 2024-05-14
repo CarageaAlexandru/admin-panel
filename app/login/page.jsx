@@ -27,7 +27,8 @@ const LoginPage = () => {
                         <button className="text-blue-500 hover:underline">Register here</button>
                     </Link>
                     <p>OR </p>
-                    <p className="w-">Login with <strong>test@test.com - password</strong></p>
+                    <p>Login with <strong className="text-accent">test@test.com -
+                        password</strong></p>
                 </div>
                 <Suspense fallback={renderLoader()}>
                     <MessageDisplay/>
