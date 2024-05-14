@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Dashboard Application
 
-## Getting Started
+## Overview
 
-First, run the development server:
+This is a web application built using Next.js, Supabase, Daisy UI, and Recharts. The application provides a dashboard
+interface for managing users, products, and transactions with various features including authentication, protected
+routes, data visualization, and more.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+![Dashboard](public/images/dashboard.png)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### Authentication
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- **Server-side authentication** using Supabase.
+- **Protected routes** ensuring only authenticated users can access certain pages.
 
-## Learn More
+### Data Management
 
-To learn more about Next.js, take a look at the following resources:
+- **Card Data**: Displays total users, total stock value (based on all items in stock), and total sales (representing
+  all completed transactions).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+![Card Data](/public/images/cards.png)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Transactions
 
-## Deploy on Vercel
+- **Latest Transactions**: Table showing the last 10 transactions.
+- **Weekly Transactions**: Line chart displaying the value of the last 10 transactions.
+- **Sales by Category**: Chart showing the amount sold in each category.
+- **Transaction Table**: Displays transactions based on client ID and product ID, showing item quantity, price, and
+  total amount.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+![Transactions](/public/images/all-transactions.png)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Users
+
+- **User Search**: Server-side filtering of users using URL parameters for easy sharing.
+- **User Table**: View and delete users with pagination support.
+- **Invite User**: Functionality to invite new users to the platform.
+
+![Search User](/public/images/serach-user.png)
+
+### Products
+
+- **Product Management**: Insert, view, and delete products with client-side validation.
+- **Product Table**: Displays all products with details like title, description, price, stock, size, color, and creation
+  date. Includes actions to view or delete products.
+
+![Dashboard](public/images/products-page.png)
+
+## Tech Stack
+
+- **Next.js**:
+- **Supabase**:
+- **Daisy UI**:
+- **Recharts**:
+- **Zod**:
+
+## Usage
+
+### Dashboard
+
+- View total users, total stock value, and total sales.
+- Check the latest transactions and weekly transaction values.
+- See sales data categorized by product categories.
+
+### Users
+
+- Search for users and share filtered results using URL parameters.
+- View, delete, and manage users with pagination.
+
+### Products
+
+- Add new products with client-side validation.
+- View and delete products from the product table.
+
+### Transactions
+
+- View detailed transaction data including item quantities, prices, and total amounts.
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
