@@ -1,5 +1,7 @@
 # Dashboard Application
 
+## Please find the link to the hosted version of this project here: https://admin-panel-nu-beige.vercel.app/login
+
 ## Overview
 
 This is a web application built using Next.js, Supabase, Daisy UI, and Recharts. The application provides a dashboard
